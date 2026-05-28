@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="DWH_Conn"
+  DTS:DTSID="{34C6A925-D3F1-4DD3-882C-D4AAE37CE4E5}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=LAPTOP-20K14P2C\MSSQLSERVER2;User ID=sa;Initial Catalog=ToyStore_DWH;Provider=SQLOLEDB.1;Application Name=SSIS-ToyStore_ETL-IT23725010-{34C6A925-D3F1-4DD3-882C-D4AAE37CE4E5}LAPTOP-20K14P2C\MSSQLSERVER2.ToyStore_DWH.sa;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAYUVknow+60umnakcNeRZBQAAAAACAAAAAAAQZgAAAAEAACAAAADBDez1Af5pcG9b+/Y7lgGJ8fBZ5zphv9NoCQB6gmUh1QAAAAAOgAAAAAIAACAAAAAPJBGuSCVJdOUGqBkbcLkNzyXg+kgTPw+CoZg9tsEdAoAAAADgJKD2FzyA3tGFFeGb/naQJybrILgd4Oyaw2xDs+bKN31xIecVW2yiqEDHSVc1awbKdpsVYvSffAuN6ykfIeQwxk4HuYlZtm+vlI+gVZtPA3xjbhjcBYP23M9OPeNcJNS6zgsfl7KyrTu79AVFOc8vRdxUu76BVPG04kGUeZN7GkAAAAAFhXyILeNKG6PINjGP9s5WUUSnI9XPOnaDXCpfRR7ea6BXlDanYnLmDSKAPUcQCuE2ZtQr2Iv3zVMrvXut53NS</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

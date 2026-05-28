@@ -1,0 +1,33 @@
+USE ToyStore_DWH;
+
+-- Check before state (NULL completions)
+SELECT TOP 3
+    OrderItemID,
+    accm_txn_create_time,
+    accm_txn_complete_time,
+    txn_process_time_hours
+FROM FactSales;
+
+-- Count updated rows
+SELECT COUNT(*) AS UpdatedRows
+FROM FactSales
+WHERE accm_txn_complete_time IS NOT NULL;
+
+-- Count pending rows
+SELECT COUNT(*) AS PendingRows
+FROM FactSales
+WHERE accm_txn_complete_time IS NULL;
+
+-- Show after state with processing hours
+SELECT TOP 10
+    OrderItemID,
+    accm_txn_create_time,
+    accm_txn_complete_time,
+    txn_process_time_hours
+FROM FactSales
+WHERE accm_txn_complete_time IS NOT NULL
+ORDER BY txn_process_time_hours DESC;
+
+-- Check unmatched completions
+SELECT COUNT(*) AS UnmatchedRows
+FROM Stage_UnmatchedCompletions;

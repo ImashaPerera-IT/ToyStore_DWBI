@@ -1,0 +1,3 @@
+-- This confirms users data is accessible
+USE ToyStore_OLTP;
+SELECT TOP 3 * FROM users;

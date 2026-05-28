@@ -1,0 +1,33 @@
+USE ToyStore_DWH;
+
+SELECT COUNT(*) AS FactRows FROM FactSales;
+
+
+SELECT COUNT(*) AS ErrorRows 
+FROM FactSales_ErrorLog;
+
+
+SELECT TOP 3
+    OrderItemID,
+    accm_txn_create_time,
+    accm_txn_complete_time,
+    txn_process_time_hours
+FROM FactSales;
+
+
+SELECT TOP 5
+    SalesSK,
+    FullDate,
+    ProductName,
+    Country,
+    UTMSource,
+    ShippingMethod,
+    RevenueUSD,
+    COGSusd,
+    GrossProfit
+FROM FactSales f
+JOIN DimDate d ON f.OrderDateSK = d.DateSK
+JOIN DimProduct p ON f.ProductSK = p.ProductSK
+JOIN DimGeography g ON f.GeographySK = g.GeographySK
+JOIN DimMarketingChannel m ON f.ChannelSK = m.ChannelSK
+JOIN DimShipping s ON f.ShippingSK = s.ShippingSK;

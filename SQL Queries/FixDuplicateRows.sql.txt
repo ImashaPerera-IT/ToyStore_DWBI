@@ -1,0 +1,45 @@
+USE ToyStore_DWH;
+
+-- Fix DimCustomer duplicates
+DELETE FROM DimCustomer
+WHERE CustomerSK NOT IN (
+    SELECT MIN(CustomerSK)
+    FROM DimCustomer
+    GROUP BY UserID
+);
+
+-- Fix DimGeography duplicates
+DELETE FROM DimGeography
+WHERE GeographySK NOT IN (
+    SELECT MIN(GeographySK)
+    FROM DimGeography
+    GROUP BY GeographyID
+);
+
+-- Fix DimMarketingChannel duplicates
+DELETE FROM DimMarketingChannel
+WHERE ChannelSK NOT IN (
+    SELECT MIN(ChannelSK)
+    FROM DimMarketingChannel
+    GROUP BY UTMSource, UTMCampaign,
+             UTMContent, DeviceType
+);
+
+-- Fix DimProduct duplicates
+DELETE FROM DimProduct
+WHERE ProductSK NOT IN (
+    SELECT MIN(ProductSK)
+    FROM DimProduct
+    GROUP BY ProductID
+);
+
+-- Verify after fix
+SELECT
+    t.name AS TableName,
+    SUM(p.row_count) AS TotalRows
+FROM sys.tables t
+JOIN sys.dm_db_partition_stats p
+    ON t.object_id = p.object_id
+WHERE p.index_id IN (0,1)
+GROUP BY t.name
+ORDER BY t.name;

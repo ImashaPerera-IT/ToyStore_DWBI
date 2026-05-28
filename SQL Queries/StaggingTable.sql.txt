@@ -1,0 +1,12 @@
+USE ToyStore_DWH;
+
+CREATE TABLE Stage_OrderCompletions (
+    order_item_id INT,
+    accm_txn_complete_time DATETIME
+);
+
+CREATE TABLE Stage_UnmatchedCompletions (
+    order_item_id INT,
+    accm_txn_complete_time DATETIME,
+    logged_at DATETIME DEFAULT GETDATE()
+);

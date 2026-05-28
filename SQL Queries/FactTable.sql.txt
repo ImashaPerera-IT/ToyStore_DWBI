@@ -1,0 +1,30 @@
+CREATE TABLE FactSales (
+    SalesSK INT IDENTITY(1,1) PRIMARY KEY,
+    OrderItemID INT NOT NULL,
+    OrderID INT NOT NULL,
+    OrderDateSK INT REFERENCES DimDate(DateSK),
+    ProductSK INT REFERENCES DimProduct(ProductSK),
+    CustomerSK INT REFERENCES DimCustomer(CustomerSK),
+    GeographySK INT REFERENCES DimGeography(GeographySK),
+    ChannelSK INT REFERENCES DimMarketingChannel(ChannelSK),
+    ShippingSK INT REFERENCES DimShipping(ShippingSK),
+    RevenueUSD DECIMAL(10,2),
+    COGSusd DECIMAL(10,2),
+    DiscountUSD DECIMAL(10,2),
+    GrossProfit AS (RevenueUSD - COGSusd),
+    IsRefunded BIT DEFAULT 0,
+    RefundAmountUSD DECIMAL(10,2) DEFAULT 0,
+    accm_txn_create_time DATETIME NOT NULL,
+    accm_txn_complete_time DATETIME NULL,
+    txn_process_time_hours AS DATEDIFF(HOUR,
+        accm_txn_create_time,
+        accm_txn_complete_time)
+);
+
+-- Error Log Table
+CREATE TABLE FactSales_ErrorLog (
+    OrderItemID INT,
+    OrderID INT,
+    error_reason VARCHAR(255),
+    logged_at DATETIME DEFAULT GETDATE()
+);

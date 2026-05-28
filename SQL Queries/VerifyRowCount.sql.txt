@@ -1,0 +1,11 @@
+USE ToyStore_DWH;
+
+SELECT
+    t.name AS TableName,
+    SUM(p.row_count) AS TotalRows
+FROM sys.tables t
+JOIN sys.dm_db_partition_stats p
+    ON t.object_id = p.object_id
+WHERE p.index_id IN (0,1)
+GROUP BY t.name
+ORDER BY t.name;

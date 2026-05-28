@@ -1,0 +1,20 @@
+USE ToyStore_DWH;
+
+DECLARE @d DATE = '2012-01-01';
+WHILE @d <= '2015-12-31'
+BEGIN
+    INSERT INTO DimDate VALUES (
+        CONVERT(INT, FORMAT(@d, 'yyyyMMdd')),
+        @d,
+        DATEPART(WEEKDAY, @d),
+        DATENAME(WEEKDAY, @d),
+        DAY(@d),
+        MONTH(@d),
+        DATENAME(MONTH, @d),
+        DATEPART(QUARTER, @d),
+        YEAR(@d),
+        CASE WHEN DATEPART(WEEKDAY, @d)
+            IN (1,7) THEN 1 ELSE 0 END
+    );
+    SET @d = DATEADD(DAY, 1, @d);
+END

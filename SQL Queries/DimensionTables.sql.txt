@@ -1,0 +1,69 @@
+-- DimDate
+CREATE TABLE DimDate (
+    DateSK INT PRIMARY KEY,
+    FullDate DATE NOT NULL,
+    DayOfWeek TINYINT,
+    DayName VARCHAR(10),
+    DayOfMonth TINYINT,
+    Month TINYINT,
+    MonthName VARCHAR(10),
+    Quarter TINYINT,
+    Year SMALLINT,
+    IsWeekend BIT
+);
+
+-- DimProduct
+CREATE TABLE DimProduct (
+    ProductSK INT IDENTITY(1,1) PRIMARY KEY,
+    ProductID INT NOT NULL,
+    ProductName NVARCHAR(100),
+    ProductCategory NVARCHAR(50),
+    Brand NVARCHAR(50),
+    TargetAgeGroup NVARCHAR(20),
+    IsActive BIT DEFAULT 1,
+    UnitCostUSD DECIMAL(10,2),
+    EffectiveDate DATE NOT NULL,
+    ExpiryDate DATE NULL,
+    IsCurrent BIT DEFAULT 1
+);
+
+-- DimCustomer
+CREATE TABLE DimCustomer (
+    CustomerSK INT IDENTITY(1,1) PRIMARY KEY,
+    UserID INT NOT NULL,
+    Email NVARCHAR(200),
+    PreferredDevice NVARCHAR(20),
+    Country NVARCHAR(50),
+    HasPurchased BIT,
+    RegistrationDate DATE,
+    IsCurrent BIT DEFAULT 1
+);
+
+-- DimGeography
+CREATE TABLE DimGeography (
+    GeographySK INT IDENTITY(1,1) PRIMARY KEY,
+    GeographyID INT NOT NULL,
+    City VARCHAR(255),
+    Country VARCHAR(255),
+    Region VARCHAR(255),
+    Continent VARCHAR(255)
+);
+
+-- DimMarketingChannel
+CREATE TABLE DimMarketingChannel (
+    ChannelSK INT IDENTITY(1,1) PRIMARY KEY,
+    UTMSource NVARCHAR(50),
+    UTMCampaign NVARCHAR(50),
+    UTMContent NVARCHAR(50),
+    DeviceType NVARCHAR(20)
+);
+
+-- DimShipping
+CREATE TABLE DimShipping (
+    ShippingSK INT IDENTITY(1,1) PRIMARY KEY,
+    ShippingMethod NVARCHAR(50)
+);
+
+-- Insert Shipping Methods
+INSERT INTO DimShipping (ShippingMethod)
+VALUES ('Standard'),('Express'),('Free Shipping');
